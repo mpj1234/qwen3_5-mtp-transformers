@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="阶段 1 · 主模型 prefill">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#93a8c9"/></marker>
+<marker id="blue-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69adff"/></marker>
+<marker id="purple-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#bc9bff"/></marker>
+<marker id="green-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69df9a"/></marker>
+</defs>
+<rect width="1280" height="720" fill="#0b1020"/>
+<text x="54" y="66" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="700" text-anchor="start">阶段 1 · 主模型 prefill</text>
+<text x="55" y="101" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">整段 prompt 只执行一次主模型 forward；pending 是输出，尚未进入主 cache。</text>
+<line x1="54" y1="122" x2="1226" y2="122" stroke="#34425f" stroke-width="1"/>
+<rect x="55" y="179" width="430" height="252" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="179" width="7" height="252" rx="3" fill="#69adff" stroke="#69adff" stroke-width="0"/>
+<text x="82" y="218" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">输入</text>
+<text x="82" y="253" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">prompt = [p0, p1, p2, p3]</text>
+<text x="82" y="281" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">tokenizer.apply_chat_template(...)</text>
+<text x="82" y="309" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">位置 0, 1, 2, 3</text>
+<rect x="690" y="179" width="535" height="252" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="690" y="179" width="7" height="252" rx="3" fill="#69adff" stroke="#69adff" stroke-width="0"/>
+<text x="717" y="218" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">主模型一次 forward 的结果</text>
+<text x="717" y="253" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">hidden = [h0, h1, h2, h3]</text>
+<text x="717" y="281" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">main cache 已处理 p0..p3</text>
+<text x="717" y="309" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">logits(p3) → pending = t0</text>
+<path d="M 485 300 L 690 300" fill="none" stroke="#69adff" stroke-width="3" marker-end="url(#blue-arrow)"/>
+<rect x="55" y="499" width="1170" height="126" rx="18" fill="#1b2540" stroke="#34425f" stroke-width="1.5"/>
+<text x="84" y="543" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="22" font-weight="700" text-anchor="start">关键边界</text>
+<text x="230" y="543" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="18" font-weight="400" text-anchor="start">主 cache 到 p3；t0 是下一 token 预测，尚未写入任何主模型层的 cache。</text>
+<text x="230" y="576" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">后续验证必须先把 pending=t0 作为 candidate chunk 的第一个输入。</text>
+</svg>

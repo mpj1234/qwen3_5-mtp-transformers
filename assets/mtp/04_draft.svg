@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="阶段 3 · 连续 draft 四个候选">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#93a8c9"/></marker>
+<marker id="blue-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69adff"/></marker>
+<marker id="purple-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#bc9bff"/></marker>
+<marker id="green-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69df9a"/></marker>
+</defs>
+<rect width="1280" height="720" fill="#0b1020"/>
+<text x="54" y="66" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="700" text-anchor="start">阶段 3 · 连续 draft 四个候选</text>
+<text x="55" y="101" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">单层 MTP 自回归提出 d1..d4；快照记录“已处理输入”，不是“已经预测的输出”。</text>
+<line x1="54" y1="122" x2="1226" y2="122" stroke="#34425f" stroke-width="1"/>
+<rect x="55" y="198" width="270" height="252" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="198" width="7" height="252" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="82" y="237" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">调用 1</text>
+<text x="82" y="272" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输入 t0 + h_p3</text>
+<text x="82" y="300" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输出 d1</text>
+<text x="82" y="328" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">S0：到 t0</text>
+<path d="M 325 323 L 359 323" fill="none" stroke="#bc9bff" stroke-width="2" marker-end="url(#purple-arrow)"/>
+<rect x="359" y="198" width="270" height="252" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="359" y="198" width="7" height="252" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="386" y="237" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">调用 2</text>
+<text x="386" y="272" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输入 d1 + MTP hidden</text>
+<text x="386" y="300" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输出 d2</text>
+<text x="386" y="328" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">S1：到 d1</text>
+<path d="M 629 323 L 663 323" fill="none" stroke="#bc9bff" stroke-width="2" marker-end="url(#purple-arrow)"/>
+<rect x="663" y="198" width="270" height="252" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="663" y="198" width="7" height="252" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="690" y="237" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">调用 3</text>
+<text x="690" y="272" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输入 d2 + MTP hidden</text>
+<text x="690" y="300" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输出 d3</text>
+<text x="690" y="328" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">S2：到 d2</text>
+<path d="M 933 323 L 967 323" fill="none" stroke="#bc9bff" stroke-width="2" marker-end="url(#purple-arrow)"/>
+<rect x="967" y="198" width="270" height="252" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="967" y="198" width="7" height="252" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="994" y="237" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">调用 4</text>
+<text x="994" y="272" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输入 d3 + MTP hidden</text>
+<text x="994" y="300" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输出 d4</text>
+<text x="994" y="328" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">S3：到 d3</text>
+<rect x="55" y="515" width="1170" height="118" rx="18" fill="#1b2540" stroke="#34425f" stroke-width="1.5"/>
+<text x="85" y="558" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="22" font-weight="700" text-anchor="start">注意</text>
+<text x="190" y="558" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="19" font-weight="400" text-anchor="start">d4 只是调用 4 的输出，尚未作为 MTP 输入，所以不在 S3 中。</text>
+<text x="190" y="593" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">若中途遇到 EOS，实际候选数可小于 4；主模型仍负责最终验证。</text>
+</svg>

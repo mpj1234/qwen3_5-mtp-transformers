@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2100" height="1810" viewBox="0 0 2100 1810" role="img" aria-label="Qwen3.5 MTP 投机解码 · 变量与 cache 状态总览">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#93a8c9"/></marker>
+<marker id="blue-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69adff"/></marker>
+<marker id="purple-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#bc9bff"/></marker>
+<marker id="green-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69df9a"/></marker>
+</defs>
+<rect width="2100" height="1810" fill="#0b1020"/>
+<text x="54" y="66" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="700" text-anchor="start">Qwen3.5 MTP 投机解码 · 变量与 cache 状态总览</text>
+<text x="55" y="101" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">示例：prompt 有 4 个 token；每轮提出 4 个 draft。蓝色表示主模型，紫色表示 MTP，黄色表示回退状态。</text>
+<line x1="54" y1="122" x2="2046" y2="122" stroke="#34425f" stroke-width="1"/>
+<rect x="55" y="158" width="630" height="254" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="158" width="7" height="254" rx="3" fill="#69adff" stroke="#69adff" stroke-width="0"/>
+<text x="82" y="197" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">① 主模型 prefill · 只 forward 一次</text>
+<text x="82" y="232" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">input_ids / prompt P = [p0, p1, p2, p3]</text>
+<text x="82" y="260" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">main_hidden H = [h0, h1, h2, h3]</text>
+<text x="82" y="288" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">main_cache M：已处理至 p3，长度 L=4</text>
+<text x="82" y="316" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">pending = t0 = argmax(logits(p3))</text>
+<text x="82" y="344" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">t0 尚未进入主 cache；attention_mask 长度为 4</text>
+<rect x="737" y="158" width="630" height="254" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="737" y="158" width="7" height="254" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="764" y="197" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">② MTP prefill · 只 forward 一次</text>
+<text x="764" y="232" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">shifted_ids = P[:, 1:] = [p1, p2, p3]</text>
+<text x="764" y="260" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">previous_hidden = H[:, :-1] = [h0, h1, h2]</text>
+<text x="764" y="288" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">逐项配对 (p1,h0), (p2,h1), (p3,h2)</text>
+<text x="764" y="316" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">mtp_cache T：已处理至 p3，尚无 t0</text>
+<text x="764" y="344" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">后续轮次复用 T，不再次做 MTP prefill</text>
+<rect x="1419" y="158" width="630" height="254" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="1419" y="158" width="7" height="254" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="1446" y="197" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">③ 开始 draft · 最多 4 个候选</text>
+<text x="1446" y="232" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">draft_count = min(4, 剩余可生成 token 数)</text>
+<text x="1446" y="260" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">首次输入 input_ids=[t0]，配对 [h3]</text>
+<text x="1446" y="288" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">MTP(t0,h3,T) → 第一个候选 d1</text>
+<text x="1446" y="316" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">之后输入前一个 draft + MTP 自身 hidden</text>
+<text x="1446" y="344" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">每次输入后保存一份 T 的快照</text>
+<path d="M 685 283 L 737 283" fill="none" stroke="#afbdd5" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M 1367 283 L 1419 283" fill="none" stroke="#afbdd5" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="55" y="467" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="23" font-weight="700" text-anchor="start">draft() 内部：候选输出、MTP hidden 与快照的严格对齐</text>
+<rect x="55" y="495" width="470" height="190" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="495" width="7" height="190" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="82" y="534" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">调用 1</text>
+<text x="82" y="569" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输入 t0 + 主 hidden h3</text>
+<text x="82" y="597" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输出 d1 + MTP hidden u0</text>
+<text x="82" y="625" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">快照 S0：T 已处理到 t0</text>
+<path d="M 525 590 L 563 590" fill="none" stroke="#bc9bff" stroke-width="2" marker-end="url(#purple-arrow)"/>
+<rect x="563" y="495" width="470" height="190" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="563" y="495" width="7" height="190" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="590" y="534" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">调用 2</text>
+<text x="590" y="569" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输入 d1 + MTP hidden u0</text>
+<text x="590" y="597" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输出 d2 + MTP hidden u1</text>
+<text x="590" y="625" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">快照 S1：T 已处理到 d1</text>
+<path d="M 1033 590 L 1071 590" fill="none" stroke="#bc9bff" stroke-width="2" marker-end="url(#purple-arrow)"/>
+<rect x="1071" y="495" width="470" height="190" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="1071" y="495" width="7" height="190" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="1098" y="534" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">调用 3</text>
+<text x="1098" y="569" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输入 d2 + MTP hidden u1</text>
+<text x="1098" y="597" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输出 d3 + MTP hidden u2</text>
+<text x="1098" y="625" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">快照 S2：T 已处理到 d2</text>
+<path d="M 1541 590 L 1579 590" fill="none" stroke="#bc9bff" stroke-width="2" marker-end="url(#purple-arrow)"/>
+<rect x="1579" y="495" width="470" height="190" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="1579" y="495" width="7" height="190" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="1606" y="534" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">调用 4</text>
+<text x="1606" y="569" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输入 d3 + MTP hidden u2</text>
+<text x="1606" y="597" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输出 d4 + MTP hidden u3</text>
+<text x="1606" y="625" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">快照 S3：T 已处理到 d3</text>
+<text x="55" y="727" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="19" font-weight="400" text-anchor="start">重要：d4 是第 4 次调用的输出，尚未作为 MTP 输入；S3 中没有 d4。</text>
+<rect x="55" y="775" width="965" height="246" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="775" width="7" height="246" rx="3" fill="#69adff" stroke="#69adff" stroke-width="0"/>
+<text x="82" y="814" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">④ validation_forward · 主模型验证一次 chunk</text>
+<text x="82" y="849" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">candidate_ids C = [t0, d1, d2, d3, d4]</text>
+<text x="82" y="877" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">主模型每层对 C 进行一次 chunk forward</text>
+<text x="82" y="905" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">logits(t0)↔d1，logits(d1)↔d2，依此类推</text>
+<text x="82" y="933" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">hidden(C) = [h_t0, h_d1, h_d2, h_d3, h_d4]</text>
+<text x="82" y="961" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">验证后 main_cache M 暂时覆盖至 d4，长度 L+5</text>
+<rect x="1080" y="775" width="965" height="246" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="1080" y="775" width="7" height="246" rx="3" fill="#69adff" stroke="#69adff" stroke-width="0"/>
+<text x="1107" y="814" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">⑤ verify · 计算接受前缀与下一 token</text>
+<text x="1107" y="849" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">rollback_data：全注意力保存旧 KV 长度 L</text>
+<text x="1107" y="877" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">线性注意力保存逐前缀 R1..R5（conv + recurrent）</text>
+<text x="1107" y="905" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">matched = m：首个不匹配之前的 draft 数</text>
+<text x="1107" y="933" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">accepted_count = a = 1+m；accepted_hidden=hidden(C)[:a]</text>
+<text x="1107" y="961" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">next_token = b = argmax(logits(C[m]))</text>
+<path d="M 1045 897 L 1080 897" fill="none" stroke="#69adff" stroke-width="2" marker-end="url(#blue-arrow)"/>
+<text x="55" y="1085" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="23" font-weight="700" text-anchor="start">verify() 之后：按 matched 分成三种情况；每种情况都把 b 留给下一轮</text>
+<rect x="55" y="1112" width="630" height="292" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="1112" width="7" height="292" rx="3" fill="#69df9a" stroke="#69df9a" stroke-width="0"/>
+<text x="82" y="1151" fill="#69df9a" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">A · 全接受 m=4</text>
+<text x="82" y="1186" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">接受 [t0,d1,d2,d3,d4]；a=5</text>
+<text x="82" y="1214" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">主 cache 保留 L+5；不做主 cache 回退</text>
+<text x="82" y="1242" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">MTP cache 取 S3：只处理到 d3</text>
+<text x="82" y="1270" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">b = argmax(logits(d4))</text>
+<text x="82" y="1298" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">mtp_next_ids = [d4, b]，长度 2</text>
+<text x="82" y="1326" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">mtp_previous_hidden = [h_d3, h_d4]</text>
+<text x="82" y="1354" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">下一轮先补录 d4，再处理 b 并预测新 d1</text>
+<rect x="737" y="1112" width="630" height="292" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="737" y="1112" width="7" height="292" rx="3" fill="#ffd076" stroke="#ffd076" stroke-width="0"/>
+<text x="764" y="1151" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">B · 部分接受 m=2</text>
+<text x="764" y="1186" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">接受 [t0,d1,d2]；d3 首次不匹配；a=3</text>
+<text x="764" y="1214" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">主 KV 截至 L+3；线性状态选 R3</text>
+<text x="764" y="1242" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">MTP cache 恢复 S2：处理到 d2</text>
+<text x="764" y="1270" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">b = argmax(logits(d2))</text>
+<text x="764" y="1298" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">mtp_next_ids = [b]，长度 1</text>
+<text x="764" y="1326" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">mtp_previous_hidden = [h_d2]</text>
+<text x="764" y="1354" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">下一轮直接输入替换 token b</text>
+<rect x="1419" y="1112" width="630" height="292" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="1419" y="1112" width="7" height="292" rx="3" fill="#ff8494" stroke="#ff8494" stroke-width="0"/>
+<text x="1446" y="1151" fill="#ff8494" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">C · 零接受 m=0</text>
+<text x="1446" y="1186" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">只接受 [t0]；d1 首次不匹配；a=1</text>
+<text x="1446" y="1214" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">主 KV 截至 L+1；线性状态选 R1</text>
+<text x="1446" y="1242" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">MTP cache 恢复 S0：处理到 t0</text>
+<text x="1446" y="1270" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">b = argmax(logits(t0))</text>
+<text x="1446" y="1298" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">mtp_next_ids = [b]，长度 1</text>
+<text x="1446" y="1326" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">mtp_previous_hidden = [h_t0]</text>
+<text x="1446" y="1354" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">t0 本就是主模型输出，始终会被接受</text>
+<rect x="55" y="1472" width="965" height="194" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="1472" width="7" height="194" rx="3" fill="#69adff" stroke="#69adff" stroke-width="0"/>
+<text x="82" y="1511" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">主模型 main_cache：逐层显式回退</text>
+<text x="82" y="1546" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">全注意力层：KV 沿序列维裁到 L+a；a=1+m</text>
+<text x="82" y="1574" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">线性注意力层：直接恢复前缀状态 R_a</text>
+<text x="82" y="1602" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">R_a 包含该位置的 conv state + recurrent state</text>
+<text x="82" y="1630" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">不重新调用 decoder layer，也不做第二次 verify forward</text>
+<rect x="1080" y="1472" width="965" height="194" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="1080" y="1472" width="7" height="194" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="1107" y="1511" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">MTP cache：按“已处理输入”恢复</text>
+<text x="1107" y="1546" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">快照 S0..S3 对应输入 t0,d1,d2,d3 结束后的 T</text>
+<text x="1107" y="1574" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">恢复 S_min(m,3)；m=4 时最后一个 d4 尚未入 T</text>
+<text x="1107" y="1602" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">下轮 MTP 输入与 previous_hidden 必须逐项配对</text>
+<text x="1107" y="1630" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">attention_mask 增加 a；generated 增加已接受 token</text>
+<rect x="55" y="1710" width="1990" height="58" rx="18" fill="#1b2540" stroke="#34425f" stroke-width="1.5"/>
+<text x="84" y="1747" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="18" font-weight="700" text-anchor="start">变量关系：P → H,M,t0；(P[1:],H[:-1]) → T；(t0,h3,T) → D,S；(C,M) → logits,R；m → 回退 M/T → 下一轮输入。</text>
+</svg>

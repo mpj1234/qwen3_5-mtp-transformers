@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="阶段 2 · MTP prefill">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#93a8c9"/></marker>
+<marker id="blue-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69adff"/></marker>
+<marker id="purple-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#bc9bff"/></marker>
+<marker id="green-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69df9a"/></marker>
+</defs>
+<rect width="1280" height="720" fill="#0b1020"/>
+<text x="54" y="66" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="700" text-anchor="start">阶段 2 · MTP prefill</text>
+<text x="55" y="101" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">只调用一次：MTP 输入右移一个 token，并使用左侧 token 对应的主模型 hidden。</text>
+<line x1="54" y1="122" x2="1226" y2="122" stroke="#34425f" stroke-width="1"/>
+<rect x="55" y="179" width="540" height="244" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="179" width="7" height="244" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="82" y="218" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">对齐关系</text>
+<text x="82" y="253" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输入 token：p1    p2    p3</text>
+<text x="82" y="281" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">主 hidden ：h0    h1    h2</text>
+<text x="82" y="309" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">MTP(xᵢ₊₁, hᵢ) → 下一个候选</text>
+<rect x="685" y="179" width="540" height="244" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="685" y="179" width="7" height="244" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="712" y="218" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">一次 MTP forward</text>
+<text x="712" y="253" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">shifted_ids = prompt[:, 1:]</text>
+<text x="712" y="281" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">previous_hidden = main_hidden[:, :-1, :]</text>
+<text x="712" y="309" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">MTP cache 最终处理到 p3</text>
+<path d="M 595 300 L 685 300" fill="none" stroke="#bc9bff" stroke-width="3" marker-end="url(#purple-arrow)"/>
+<rect x="55" y="488" width="1170" height="139" rx="18" fill="#1b2540" stroke="#34425f" stroke-width="1.5"/>
+<text x="85" y="533" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="22" font-weight="700" text-anchor="start">接下来</text>
+<text x="215" y="533" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="18" font-weight="400" text-anchor="start">主模型给出的 pending=t0 不在 MTP cache 中。</text>
+<text x="215" y="570" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="18" font-weight="400" text-anchor="start">draft() 首次输入 t0，配对 h3（主模型处理 p3 后的 hidden），产生 d1。</text>
+</svg>

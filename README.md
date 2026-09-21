@@ -32,3 +32,11 @@ HF_HUB_OFFLINE=1 python demo_qwen3_5_annotated.py --device cuda:0 --draft-tokens
 4. 若候选不匹配，逐层回退 cache：全注意力层截断 KV，线性注意力层恢复已保存的卷积和递归状态。
 
 当前示例只处理单条输入，使用贪心解码和一个 MTP 层。BF16 下，chunk 验证与逐 token 前向的舍入结果可能不同。
+
+## 流程图
+
+![Qwen3.5 MTP 投机解码总览](assets/mtp/01_overview.svg)
+
+总览图包含主要变量和三种接受情况；可[打开原始 SVG 放大查看](assets/mtp/01_overview.svg)。
+
+各阶段及 cache 回退案例见 [MTP 流程图](MTP_DIAGRAMS.md)。

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="两类 Attention Cache 如何直接回退">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#93a8c9"/></marker>
+<marker id="blue-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69adff"/></marker>
+<marker id="purple-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#bc9bff"/></marker>
+<marker id="green-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69df9a"/></marker>
+</defs>
+<rect width="1280" height="720" fill="#0b1020"/>
+<text x="54" y="66" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="700" text-anchor="start">两类 Attention Cache 如何直接回退</text>
+<text x="55" y="101" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">示例：验证块 [t0,d1,d2,d3,d4]，只有 d1、d2 匹配；接受长度为 1+2=3。</text>
+<line x1="54" y1="122" x2="1226" y2="122" stroke="#34425f" stroke-width="1"/>
+<rect x="55" y="170" width="1170" height="94" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="170" width="7" height="94" rx="3" fill="#69adff" stroke="#69adff" stroke-width="0"/>
+<text x="82" y="209" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">主模型验证后</text>
+<text x="82" y="244" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">L 是验证前的主 cache 长度；一次 chunk forward 后暂时有 5 个候选位置。</text>
+<text x="70" y="323" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="22" font-weight="700" text-anchor="start">全注意力 KV</text>
+<rect x="70" y="350" width="340" height="42" rx="12" fill="#1b2540" stroke="#69adff" stroke-width="1.5"/>
+<text x="240.0" y="377" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">旧 cache · L</text>
+<rect x="419" y="350" width="138" height="42" rx="12" fill="#1b2540" stroke="#69adff" stroke-width="1.5"/>
+<text x="488.0" y="377" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">t0</text>
+<rect x="566" y="350" width="138" height="42" rx="12" fill="#1b2540" stroke="#69adff" stroke-width="1.5"/>
+<text x="635.0" y="377" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">d1</text>
+<rect x="713" y="350" width="138" height="42" rx="12" fill="#1b2540" stroke="#69adff" stroke-width="1.5"/>
+<text x="782.0" y="377" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">d2</text>
+<rect x="860" y="350" width="138" height="42" rx="12" fill="#1b2540" stroke="#ff8494" stroke-width="1.5"/>
+<text x="929.0" y="377" fill="#ff8494" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">d3</text>
+<rect x="1007" y="350" width="138" height="42" rx="12" fill="#1b2540" stroke="#ff8494" stroke-width="1.5"/>
+<text x="1076.0" y="377" fill="#ff8494" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">d4</text>
+<text x="70" y="427" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="18" font-weight="400" text-anchor="start">保留旧 KV + 前 3 个位置，长度 L+3；直接按序列维裁掉 d3、d4 的 KV。</text>
+<line x1="55" y1="458" x2="1225" y2="458" stroke="#34425f" stroke-width="2"/>
+<text x="70" y="512" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="22" font-weight="700" text-anchor="start">线性注意力</text>
+<rect x="70" y="536" width="215" height="42" rx="12" fill="#1b2540" stroke="#ffd076" stroke-width="1.5"/>
+<text x="177.5" y="563" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">S1 · t0</text>
+<rect x="305" y="536" width="215" height="42" rx="12" fill="#1b2540" stroke="#ffd076" stroke-width="1.5"/>
+<text x="412.5" y="563" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">S2 · d1</text>
+<rect x="540" y="536" width="215" height="42" rx="12" fill="#1b2540" stroke="#69df9a" stroke-width="1.5"/>
+<text x="647.5" y="563" fill="#69df9a" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">S3 · d2</text>
+<rect x="775" y="536" width="215" height="42" rx="12" fill="#1b2540" stroke="#ff8494" stroke-width="1.5"/>
+<text x="882.5" y="563" fill="#ff8494" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">S4 · d3</text>
+<rect x="1010" y="536" width="215" height="42" rx="12" fill="#1b2540" stroke="#ff8494" stroke-width="1.5"/>
+<text x="1117.5" y="563" fill="#ff8494" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">S5 · d4</text>
+<text x="70" y="618" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="18" font-weight="400" text-anchor="start">直接选择 S3 的 conv state 和 recurrent state；无需再次执行 decoder layer。</text>
+</svg>

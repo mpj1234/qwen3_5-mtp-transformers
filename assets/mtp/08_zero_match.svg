@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="情况 C · 第一个 draft 就不匹配">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#93a8c9"/></marker>
+<marker id="blue-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69adff"/></marker>
+<marker id="purple-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#bc9bff"/></marker>
+<marker id="green-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69df9a"/></marker>
+</defs>
+<rect width="1280" height="720" fill="#0b1020"/>
+<text x="54" y="66" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="700" text-anchor="start">情况 C · 第一个 draft 就不匹配</text>
+<text x="55" y="101" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">matched=0；pending=t0 仍然接受，所有 draft 都丢弃；主模型给出 t0 后的正确 token b。</text>
+<line x1="54" y1="122" x2="1226" y2="122" stroke="#34425f" stroke-width="1"/>
+<rect x="70" y="180" width="210" height="42" rx="12" fill="#1b2540" stroke="#69df9a" stroke-width="1.5"/>
+<text x="175.0" y="207" fill="#69df9a" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">t0  接受</text>
+<rect x="355" y="180" width="210" height="42" rx="12" fill="#1b2540" stroke="#ff8494" stroke-width="1.5"/>
+<text x="460.0" y="207" fill="#ff8494" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">d1  拒绝</text>
+<rect x="640" y="180" width="210" height="42" rx="12" fill="#1b2540" stroke="#ff8494" stroke-width="1.5"/>
+<text x="745.0" y="207" fill="#ff8494" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">d2..d4  丢弃</text>
+<rect x="950" y="180" width="235" height="42" rx="12" fill="#1b2540" stroke="#ffd076" stroke-width="1.5"/>
+<text x="1067.5" y="207" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="700" text-anchor="middle">下一 token = b</text>
+<rect x="55" y="294" width="540" height="224" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="294" width="7" height="224" rx="3" fill="#69adff" stroke="#69adff" stroke-width="0"/>
+<text x="82" y="333" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">主模型 cache</text>
+<text x="82" y="368" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">验证 chunk 后，只提交 t0</text>
+<text x="82" y="396" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">全注意力 KV 长度 L+5 → L+1</text>
+<text x="82" y="424" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">线性注意力恢复第 1 个前缀状态</text>
+<rect x="685" y="294" width="540" height="224" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="685" y="294" width="7" height="224" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="712" y="333" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">MTP cache</text>
+<text x="712" y="368" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">恢复第一次 draft 调用后的快照 S0</text>
+<text x="712" y="396" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">S0 已处理 t0，但未处理错误候选 d1</text>
+<text x="712" y="424" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">下一轮仅输入 b，配对主模型 h_t0</text>
+<rect x="55" y="574" width="1170" height="83" rx="18" fill="#1b2540" stroke="#34425f" stroke-width="1.5"/>
+<text x="85" y="613" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="18" font-weight="700" text-anchor="start">matched=0 仍然向前推进一个 token：t0 是主模型 prefill 的预测，本来就无需 draft 认可。</text>
+</svg>

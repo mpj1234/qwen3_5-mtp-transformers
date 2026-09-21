@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="情况 B · 四个 draft 全部接受">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#93a8c9"/></marker>
+<marker id="blue-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69adff"/></marker>
+<marker id="purple-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#bc9bff"/></marker>
+<marker id="green-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69df9a"/></marker>
+</defs>
+<rect width="1280" height="720" fill="#0b1020"/>
+<text x="54" y="66" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="700" text-anchor="start">情况 B · 四个 draft 全部接受</text>
+<text x="55" y="101" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">matched=4；主 cache 处理到 d4，MTP cache 只处理到 d3。下一轮首次 MTP 输入长度为 2。</text>
+<line x1="54" y1="122" x2="1226" y2="122" stroke="#34425f" stroke-width="1"/>
+<rect x="55" y="176" width="540" height="194" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="176" width="7" height="194" rx="3" fill="#69df9a" stroke="#69df9a" stroke-width="0"/>
+<text x="82" y="215" fill="#69df9a" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">本轮验证结束</text>
+<text x="82" y="250" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">主 cache：[... t0, d1, d2, d3, d4]</text>
+<text x="82" y="278" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">MTP cache：[... t0, d1, d2, d3]</text>
+<text x="82" y="306" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">主模型在 d4 后输出 bonus=b</text>
+<rect x="685" y="176" width="540" height="194" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="685" y="176" width="7" height="194" rx="3" fill="#bc9bff" stroke="#bc9bff" stroke-width="0"/>
+<text x="712" y="215" fill="#bc9bff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">下一轮 MTP 一次输入两个 token</text>
+<text x="712" y="250" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">token_ids = [d4, b]</text>
+<text x="712" y="278" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">previous_hidden = [h_d3, h_d4]</text>
+<text x="712" y="306" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">输出下一轮的首个 draft</text>
+<path d="M 595 273 L 685 273" fill="none" stroke="#bc9bff" stroke-width="3" marker-end="url(#purple-arrow)"/>
+<rect x="55" y="428" width="1170" height="193" rx="18" fill="#1b2540" stroke="#34425f" stroke-width="1.5"/>
+<text x="84" y="473" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="22" font-weight="700" text-anchor="start">逐项对齐</text>
+<text x="251" y="473" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="19" font-weight="400" text-anchor="start">d4 + h_d3 → 将 d4 写入 MTP cache</text>
+<text x="251" y="515" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="19" font-weight="400" text-anchor="start">b  + h_d4 → 将 b 写入 MTP cache，并预测新的 d1</text>
+<text x="84" y="578" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">不能只送入 b：那会跳过 d4，导致 MTP cache 的历史缺一项。</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="阶段 4 · 主模型一次性验证候选块">
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#93a8c9"/></marker>
+<marker id="blue-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69adff"/></marker>
+<marker id="purple-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#bc9bff"/></marker>
+<marker id="green-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#69df9a"/></marker>
+</defs>
+<rect width="1280" height="720" fill="#0b1020"/>
+<text x="54" y="66" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="34" font-weight="700" text-anchor="start">阶段 4 · 主模型一次性验证候选块</text>
+<text x="55" y="101" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">candidate_ids = [t0, d1, d2, d3, d4]；每个 decoder layer 只对整个 chunk forward 一次。</text>
+<line x1="54" y1="122" x2="1226" y2="122" stroke="#34425f" stroke-width="1"/>
+<rect x="55" y="168" width="1170" height="126" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="168" width="7" height="126" rx="3" fill="#69adff" stroke="#69adff" stroke-width="0"/>
+<text x="82" y="207" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">logits 与 draft 的比较</text>
+<text x="82" y="242" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">logits(t0) ↔ d1       logits(d1) ↔ d2       logits(d2) ↔ d3       logits(d3) ↔ d4</text>
+<rect x="55" y="340" width="535" height="194" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="55" y="340" width="7" height="194" rx="3" fill="#69adff" stroke="#69adff" stroke-width="0"/>
+<text x="82" y="379" fill="#69adff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">全注意力层</text>
+<text x="82" y="414" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">一次处理整个候选 chunk</text>
+<text x="82" y="442" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">保存验证前 KV 长度 L</text>
+<text x="82" y="470" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">验证后 KV 长度 L+5</text>
+<rect x="690" y="340" width="535" height="194" rx="18" fill="#151d30" stroke="#34425f" stroke-width="1.5"/>
+<rect x="690" y="340" width="7" height="194" rx="3" fill="#ffd076" stroke="#ffd076" stroke-width="0"/>
+<text x="717" y="379" fill="#ffd076" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="21" font-weight="700" text-anchor="start">线性注意力层</text>
+<text x="717" y="414" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">一次处理整个候选 chunk</text>
+<text x="717" y="442" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">另算每个前缀的 conv / recurrent 快照</text>
+<text x="717" y="470" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="17" font-weight="400" text-anchor="start">S1, S2, S3, S4, S5</text>
+<rect x="55" y="581" width="1170" height="83" rx="18" fill="#1b2540" stroke="#34425f" stroke-width="1.5"/>
+<text x="83" y="617" fill="#edf3ff" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="18" font-weight="400" text-anchor="start">遇到第一个不一致就停止匹配；验证产生的多余 cache 状态随后按接受长度回退。</text>
+<text x="83" y="645" fill="#afbdd5" font-family="Noto Sans CJK SC, Microsoft YaHei, PingFang SC, sans-serif" font-size="16" font-weight="400" text-anchor="start">线性注意力的逐前缀快照是状态计算，不再调用整层 decoder forward。</text>
+</svg>
