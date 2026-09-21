@@ -1,6 +1,6 @@
 """Qwen3.5 0.8B MTP 投机解码教学版：逐行标注了实际运行的实现。
 
-运行：MODEL_PATH=/data/peijue.ma/modelscope/Qwen3.5-0.8B \
+运行：MODEL_PATH=/data/modelscope/Qwen3.5-0.8B \
       HF_HUB_OFFLINE=1 python demo_qwen3_5_annotated.py --device cpu --max-new-tokens 12
 默认尝试选择空闲显存最多的一张 CUDA 卡；模型和 MTP 始终放在同一设备。
 
