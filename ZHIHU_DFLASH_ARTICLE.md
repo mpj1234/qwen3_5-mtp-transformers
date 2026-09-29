@@ -1,10 +1,12 @@
 # 给 Qwen3.5 接上 DFlash：一次猜一块 Token，为什么草稿 Cache 不用回退？
 
+本文代码：[DFlash 推理示例](https://github.com/mpj1234/qwen3_5-mtp-transformers/blob/main/demo_dflash.py) · [详细注释版](https://github.com/mpj1234/qwen3_5-mtp-transformers/blob/main/demo_dflash_annotated.py)。
+
 ## 为什么又写一篇投机解码
 
 上一篇 [MTP 文章](ZHIHU_MTP_ARTICLE.md) 写到最后，最绕的地方是“两套 cache 都可能走过头，所以要各自回退”。把同样的问题带到 DFlash，我一开始也以为：既然草稿模型同样猜了几个 token，它的 cache 当然也要保存快照、验证失败后再裁掉。
 
-写完 Qwen3.5-4B 的 [DFlash 推理示例](demo_dflash.py)，我发现答案取决于**究竟把什么写进草稿 cache**。这份实现只缓存主模型已经确认的上下文；当前这一轮的候选只参与临时计算。于是主模型验证失败时要回退，草稿 cache 却没有错误候选可回退。
+写完 Qwen3.5-4B 的 DFlash 推理示例，我发现答案取决于**究竟把什么写进草稿 cache**。这份实现只缓存主模型已经确认的上下文；当前这一轮的候选只参与临时计算。于是主模型验证失败时要回退，草稿 cache 却没有错误候选可回退。
 
 这篇文章从一轮推理开始，顺着 `prefill → draft → verify` 走一遍，再解释此前容易卡住的几个问题：`output_hidden_states=True` 为什么会返回 33 项？为什么上下文只算 K/V、不算 Q？第一次和第二次调用 `cache_context` 的序列长度是多少？`cache.length` 为什么只增不减？
 
