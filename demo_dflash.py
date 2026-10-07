@@ -6,6 +6,7 @@ back rejected draft suffixes. The drafter caches accepted context K/V states.
 """
 
 import argparse
+import importlib.util
 import os
 import sys
 from pathlib import Path
@@ -17,7 +18,7 @@ from torch import nn
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "src"))
 
-from transformers import AutoTokenizer, Qwen3_5ForConditionalGeneration, Qwen3Config  # noqa: E402
+from transformers import AutoTokenizer, BitsAndBytesConfig, Qwen3_5ForConditionalGeneration, Qwen3Config  # noqa: E402
 from transformers.masking_utils import create_causal_mask  # noqa: E402
 from transformers.models.qwen3.modeling_qwen3 import Qwen3MLP, Qwen3RMSNorm, Qwen3RotaryEmbedding  # noqa: E402
 from transformers.models.qwen3_5.modeling_qwen3_5 import causal_conv1d_fn  # noqa: E402
@@ -193,7 +194,7 @@ class DFlashDraft(nn.Module):
         settings = config.dflash_config
         self.config = config
         self.target_layer_ids = settings["target_layer_ids"]
-        self.block_size = settings["block_size"]
+        self.block_size = draft_config_value(config, "block_size")
         self.mask_token_id = settings["mask_token_id"]
         self.input_embedding_scale = float(draft_config_value(config, "input_embedding_scale", 1.0))
         self.output_multiplier = float(draft_config_value(config, "output_multiplier", 1.0))
@@ -417,10 +418,11 @@ def generate(target, draft_model, prompt_ids, max_new_tokens, block_size, eos_id
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--prompt", default="你好，请用一句话介绍你自己。")
+    parser.add_argument("--prompt", default="讲述下存算一体")
     parser.add_argument("--max-new-tokens", type=int, default=256)
     parser.add_argument("--block-size", type=int, default=8)
     parser.add_argument("--device", default="auto", help="Single device, for example cuda:0 or cpu")
+    parser.add_argument("--quantization", choices=("auto", "8bit", "none"), default="auto")
     args = parser.parse_args()
     if args.max_new_tokens < 1:
         parser.error("--max-new-tokens must be at least 1")
@@ -438,8 +440,20 @@ def main():
     print(f"Running on {device}")
 
     tokenizer = AutoTokenizer.from_pretrained(model_path, local_files_only=True)
+    can_use_8bit = device.startswith("cuda") and importlib.util.find_spec("bitsandbytes") is not None
+    if args.quantization == "8bit" and not can_use_8bit:
+        parser.error("8bit quantization requires CUDA and bitsandbytes")
+    use_8bit = can_use_8bit if args.quantization == "auto" else args.quantization == "8bit"
+    model_kwargs = {
+        "dtype": "auto",
+        "device_map": {"": device},
+        "local_files_only": True,
+    }
+    if use_8bit:
+        model_kwargs["quantization_config"] = BitsAndBytesConfig(load_in_8bit=True)
+    print(f"Target quantization: {'8bit' if use_8bit else 'none'}")
     model = Qwen3_5ForConditionalGeneration.from_pretrained(
-        model_path, dtype="auto", device_map={"": device}, local_files_only=True
+        model_path, **model_kwargs
     ).eval()
     draft = load_draft(draft_path, model)
     if not 2 <= args.block_size <= draft.block_size:
